@@ -93,6 +93,10 @@ void APlayer2::PlayerSpecial()
 
 }
 
+void APlayer2::PlayerFreezeTime()
+{
+}
+
 
 
 

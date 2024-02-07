@@ -58,4 +58,7 @@ public:
 	void PlayerSlam();
 
 	void PlayerSpecial();
+
+	void PlayerFreezeTime();
+
 };

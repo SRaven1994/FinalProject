@@ -90,3 +90,7 @@ void APlayer1::PlayerSpecial()
 {
 }
 
+void APlayer1::PlayerFreezeTime()
+{
+}
+
