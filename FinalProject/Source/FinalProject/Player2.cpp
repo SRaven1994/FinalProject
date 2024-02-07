@@ -63,18 +63,21 @@ void APlayer2::PlayerJump()
 }
 
 // Move Player Forward or Backwards
-void APlayer2::PlayerMovementForward(float InputAxis)
+void APlayer2::PlayerMovement(const FInputActionValue& Value)
 {
-	AddMovementInput(GetActorForwardVector(), InputAxis);
-}
+	FVector2D MovementVector = Value.Get<FVector2D>();
 
-// Move Player Right or Left
-void APlayer2::PlayerMovementRight(float InputAxis)
-{
-	TurnAmount += InputAxis;
 	if (Controller != nullptr)
 	{
-		Controller->ClientSetRotation(FRotator(0.0f, TurnAmount, 0.0f));
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+
+		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+		AddMovementInput(ForwardDirection, MovementVector.Y);
+		AddMovementInput(RightDirection, MovementVector.X);
 	}
 }
 
@@ -96,6 +99,7 @@ void APlayer2::PlayerSpecial()
 void APlayer2::PlayerFreezeTime()
 {
 }
+
 
 
 

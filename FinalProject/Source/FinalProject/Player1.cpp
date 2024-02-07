@@ -6,6 +6,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 
+
 // Sets default values
 APlayer1::APlayer1()
 {
@@ -63,18 +64,21 @@ void APlayer1::PlayerJump()
 }
 
 // Move Player Forward or Backwards
-void APlayer1::PlayerMovementForward(float InputAxis)
+void APlayer1::PlayerMovement(const FInputActionValue& Value)
 {
-	AddMovementInput(GetActorForwardVector(), InputAxis);
-}
-
-// Move Player Right or Left
-void APlayer1::PlayerMovementRight(float InputAxis)
-{
-	TurnAmount += InputAxis;
+	FVector2D MovementVector = Value.Get<FVector2D>();
+	
 	if (Controller != nullptr)
 	{
-		Controller->ClientSetRotation(FRotator(0.0f, TurnAmount, 0.0f));
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+
+		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+		AddMovementInput(ForwardDirection, MovementVector.Y);
+		AddMovementInput(RightDirection, MovementVector.X);
 	}
 }
 
@@ -92,5 +96,9 @@ void APlayer1::PlayerSpecial()
 
 void APlayer1::PlayerFreezeTime()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Test"));
 }
+
+
+
 
