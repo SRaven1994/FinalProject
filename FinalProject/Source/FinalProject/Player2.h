@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Player1.generated.h"
+#include "Player2.generated.h"
 
 UCLASS()
-class FINALPROJECT_API APlayer1 : public ACharacter
+class FINALPROJECT_API APlayer2 : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	APlayer1();
+	APlayer2();
 
 	// Create Player Movement
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Movement")
@@ -58,4 +58,5 @@ public:
 	void PlayerSlam();
 
 	void PlayerSpecial();
+
 };
