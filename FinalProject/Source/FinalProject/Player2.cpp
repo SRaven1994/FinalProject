@@ -78,6 +78,21 @@ void APlayer2::PlayerMovementRight(float InputAxis)
 	}
 }
 
+void APlayer2::PlayerDash()
+{
+
+}
+
+void APlayer2::PlayerSlam()
+{
+
+}
+
+void APlayer2::PlayerSpecial()
+{
+
+}
+
 
 
 
