@@ -99,6 +99,10 @@ void APlayer1::PlayerFreezeTime()
 	UE_LOG(LogTemp, Warning, TEXT("Test"));
 }
 
+void APlayer1::PlayerIncreaseTime()
+{
+}
+
 
 
 

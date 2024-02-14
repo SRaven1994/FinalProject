@@ -100,6 +100,10 @@ void APlayer2::PlayerFreezeTime()
 {
 }
 
+void APlayer2::PlayerIncreaseTime()
+{
+}
+
 
 
 

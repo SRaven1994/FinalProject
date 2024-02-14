@@ -91,4 +91,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void PlayerFreezeTime();
 
+	UFUNCTION(BlueprintCallable)
+	void PlayerIncreaseTime();
+
+
 };
