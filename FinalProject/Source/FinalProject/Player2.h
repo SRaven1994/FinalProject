@@ -36,29 +36,35 @@ public:
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Camera")
 	class UCameraComponent* FollowCamera;
 
+	// Create Mechanics
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Mechanics")
+	float PlayerTimer;
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Mechanics")
+	bool PlayerSlamming;
+
 	// Create Inputs
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	//class UInputMappingContext* DefaultMappingContext;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputMappingContext* DefaultMappingContext;
 
 	// Create Jump Input
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	//class UInputAction* JumpAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* JumpAction;
 
 	// Create Movement Input
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	//class UInputAction* MoveAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* MoveAction;
 
 	// Create Dash Input
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
-	//class UInputAction* DashAction;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* DashAction;
 
 	// Create Special Move Input
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
-	//class UInputAction* SpecialAction;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* SpecialAction;
 
 	// Create Slam/Interact Input
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
-	//class UInputAction* SlamAction;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* SlamAction;
 
 protected:
 	// Called when the game starts or when spawned
@@ -94,4 +100,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void PlayerIncreaseTime();
 
+	UFUNCTION(BlueprintCallable)
+	void PlayerDecreaseTime();
 };

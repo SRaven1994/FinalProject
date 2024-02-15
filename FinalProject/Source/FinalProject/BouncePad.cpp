@@ -25,6 +25,7 @@ void ABouncePad::Tick(float DeltaTime)
 
 }
 
+// When the Player Collides, launch them.
 void ABouncePad::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 }

@@ -5,6 +5,10 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "Components/InputComponent.h"
+#include "GameFramework/Controller.h"
 
 
 // Sets default values
@@ -18,6 +22,9 @@ APlayer1::APlayer1()
 	JumpTimer = 0;
 	CharJumped = false;
 	StartJumpTimer = false;
+
+	PlayerTimer = 0.0;
+	PlayerSlamming = false;
 
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 
@@ -40,6 +47,15 @@ APlayer1::APlayer1()
 void APlayer1::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Add Input Mapping Context
+	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+	}
 	
 }
 
@@ -82,24 +98,34 @@ void APlayer1::PlayerMovement(const FInputActionValue& Value)
 	}
 }
 
+// Perform a Dash
 void APlayer1::PlayerDash()
 {
 }
 
+// Perform a Slam
 void APlayer1::PlayerSlam()
 {
 }
 
+// Perform Special ability
 void APlayer1::PlayerSpecial()
 {
 }
 
+// Freeze the Player timer, then unfreeze after awhile
 void APlayer1::PlayerFreezeTime()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Test"));
 }
 
+// Increase Player Timer
 void APlayer1::PlayerIncreaseTime()
+{
+}
+
+// Decrease Player Timer
+void APlayer1::PlayerDecreaseTime()
 {
 }
 

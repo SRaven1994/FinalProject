@@ -25,6 +25,7 @@ void AHarmfulFloor::Tick(float DeltaTime)
 
 }
 
+// When Player collides, begin to increase their timer. Stop When exited.
 void AHarmfulFloor::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 }
