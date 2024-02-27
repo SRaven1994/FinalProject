@@ -70,18 +70,19 @@ void APlayer1::Tick(float DeltaTime)
 void APlayer1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
 // Make Player Jump 
 void APlayer1::PlayerJump()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Jump"));
 	LaunchCharacter(FVector(0, 0, JumpHeightVelocity), false, true);
 }
 
 // Move Player Forward or Backwards
 void APlayer1::PlayerMovement(const FInputActionValue& Value)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Move"));
 	FVector2D MovementVector = Value.Get<FVector2D>();
 	
 	if (Controller != nullptr)
@@ -101,22 +102,25 @@ void APlayer1::PlayerMovement(const FInputActionValue& Value)
 // Perform a Dash
 void APlayer1::PlayerDash()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Dash"));
 }
 
 // Perform a Slam
 void APlayer1::PlayerSlam()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Slam"));
 }
 
 // Perform Special ability
 void APlayer1::PlayerSpecial()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Special"));
 }
 
 // Freeze the Player timer, then unfreeze after awhile
 void APlayer1::PlayerFreezeTime()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Test"));
+	
 }
 
 // Increase Player Timer
