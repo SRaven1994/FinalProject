@@ -31,16 +31,45 @@ public:
 	bool StartJumpTimer;
 
 	// Create Camera
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Camera")
+	/** Camera boom positioning the camera behind the character */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Camera")
+
+	/** Follow camera */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
 	// Create Mechanics
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Mechanics")
-	float PlayerTimer;
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Mechanics")
 	bool PlayerSlamming;
+
+	// Create Dash Energy
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
+	float DashEnergy;
+
+	// Create Max Dash Energy
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
+	float MaxDashEnergy;
+
+	// Create Can Dash
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
+	bool CanDash;
+
+	// Create start timer
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers, meta = (AllowPrivateAccess = "true"))
+	bool StartTimer;
+
+	// Create milliseconds
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers, meta = (AllowPrivateAccess = "true"))
+	int Milliseconds;
+
+	// Create seconds
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers, meta = (AllowPrivateAccess = "true"))
+	int Seconds;
+
+	// Create minutes
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers, meta = (AllowPrivateAccess = "true"))
+	int Minutes;
 
 	// Create Inputs
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -77,15 +106,29 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	/** Returns FollowCamera subobject **/
+	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	// Create force character jump function
+	void ForceJump();
+
 	// Create Player Movement Functions
 	UFUNCTION(BlueprintCallable)
 	void PlayerJump();
 
-	UFUNCTION(BlueprintCallable)
-	void PlayerMovement(const FInputActionValue& Value);
+	/** Called for movement input */
+	void Move(const FInputActionValue& Value);
+
+	/** Called for looking input */
+	void Look(const FInputActionValue& Value);
 
 	UFUNCTION(BlueprintCallable)
-	void PlayerDash();
+	void PlayerStartDash();
+
+	UFUNCTION(BlueprintCallable)
+	void PlayerEndDash();
 
 	UFUNCTION(BlueprintCallable)
 	void PlayerSlam();
@@ -98,8 +141,10 @@ public:
 	void PlayerFreezeTime();
 
 	UFUNCTION(BlueprintCallable)
-	void PlayerIncreaseTime();
-
-	UFUNCTION(BlueprintCallable)
 	void PlayerDecreaseTime();
+
+	void Timer();
+
+	// Create Gain dash energy function
+	void GainEnergy();
 };
