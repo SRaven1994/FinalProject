@@ -70,19 +70,42 @@ void APlayer1::Tick(float DeltaTime)
 void APlayer1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	
+	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
+		
+		// Move
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayer1::PlayerMovement);
+
+		// Jump
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayer1::PlayerJump);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &APlayer1::PlayerJump);
+
+		// Dash
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &APlayer1::PlayerDash);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &APlayer1::PlayerDash);
+
+		// Slam
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &APlayer1::PlayerSlam);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &APlayer1::PlayerSlam);
+
+		// Special
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &APlayer1::PlayerSpecial);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &APlayer1::PlayerSpecial);
+	}
 }
 
 // Make Player Jump 
 void APlayer1::PlayerJump()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Jump"));
+	
 	LaunchCharacter(FVector(0, 0, JumpHeightVelocity), false, true);
 }
 
 // Move Player Forward or Backwards
 void APlayer1::PlayerMovement(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Move"));
+	
 	FVector2D MovementVector = Value.Get<FVector2D>();
 	
 	if (Controller != nullptr)
@@ -102,19 +125,19 @@ void APlayer1::PlayerMovement(const FInputActionValue& Value)
 // Perform a Dash
 void APlayer1::PlayerDash()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Dash"));
+	
 }
 
 // Perform a Slam
 void APlayer1::PlayerSlam()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Slam"));
+	
 }
 
 // Perform Special ability
 void APlayer1::PlayerSpecial()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Special"));
+	
 }
 
 // Freeze the Player timer, then unfreeze after awhile

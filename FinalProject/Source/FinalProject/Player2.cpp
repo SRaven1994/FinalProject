@@ -70,6 +70,28 @@ void APlayer2::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
+
+		// Move
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayer2::PlayerMovement);
+
+		// Jump
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayer2::PlayerJump);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &APlayer2::PlayerJump);
+
+		// Dash
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &APlayer2::PlayerDash);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &APlayer2::PlayerDash);
+
+		// Slam
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &APlayer2::PlayerSlam);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &APlayer2::PlayerSlam);
+
+		// Special
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &APlayer2::PlayerSpecial);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &APlayer2::PlayerSpecial);
+	}
+
 }
 
 // Make Player Jump 
