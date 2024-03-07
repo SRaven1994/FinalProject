@@ -27,12 +27,14 @@ APlayer2::APlayer2()
 	Milliseconds = 0;
 	Seconds = 0;
 	Minutes = 0;
+	TimeFrozen = false;
+	TimeFreezeTimer = 0;
+
 	PlayerSlamming = false;
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
-	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
@@ -41,8 +43,6 @@ APlayer2::APlayer2()
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
 
-	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
-	// instead of recompiling to adjust them
 	GetCharacterMovement()->JumpZVelocity = 700.f;
 	GetCharacterMovement()->AirControl = 0.35f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
@@ -83,12 +83,27 @@ void APlayer2::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Dash Energy Regeneration
 	if (CanDash == true && DashEnergy < 1200)
 	{
 		DashEnergy += 10.0;
 	}
 
-	Timer();
+	// Run timer, stop it once player collect freeze power and resume after awhile
+	if (TimeFrozen == false)
+	{
+		Timer();
+	}
+
+	// Countdown for time frozen, after awhile unfreeze it
+	if (TimeFreezeTimer == 0 && TimeFrozen == true)
+	{
+		TimeFrozen = false;
+	}
+	else if (TimeFrozen == true && TimeFreezeTimer != 0)
+	{
+		TimeFreezeTimer -= 1;
+	}
 }
 
 // Called to bind functionality to input
@@ -196,22 +211,25 @@ void APlayer2::PlayerSpecial()
 // Freeze the Player timer, then unfreeze after awhile
 void APlayer2::PlayerFreezeTime()
 {
+	TimeFreezeTimer = 180;
+	TimeFrozen = true;
 }
 
-// Decrease Player Timer
-void APlayer2::PlayerDecreaseTime()
+// Increase Player Timer from colliding on a hazard
+void APlayer2::PlayerIncreaseTime()
 {
+	Seconds += 10;
 }
 
 // Timer - on milliseconds equal to 60 increamnt second, if seconds equal 60, incremeant minutes
 void APlayer2::Timer()
 {
-	if (Seconds == 60)
+	if (Seconds <= 60)
 	{
 		Minutes += 1;
 		Seconds = 0;
 	}
-	else if (Milliseconds == 60)
+	else if (Milliseconds <= 60)
 	{
 		Seconds += 1;
 		Milliseconds = 0;

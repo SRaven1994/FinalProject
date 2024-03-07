@@ -29,13 +29,12 @@ public:
 	// Create Cooldowns
 	int JumpTimer;
 	bool StartJumpTimer;
+	bool TimeFrozen;
 
 	// Create Camera
-	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
-	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
@@ -70,6 +69,10 @@ public:
 	// Create minutes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers, meta = (AllowPrivateAccess = "true"))
 	int Minutes;
+
+	// Create time freeze timer
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Timers, meta = (AllowPrivateAccess = "true"))
+	int TimeFreezeTimer;
 
 	// Create Inputs
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -106,22 +109,19 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
+
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 	// Create force character jump function
 	void ForceJump();
 
-	// Create Player Movement Functions
+	// Create Player Movement/controls Functions
 	UFUNCTION(BlueprintCallable)
 	void PlayerJump();
 
-	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
-	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
 	UFUNCTION(BlueprintCallable)
@@ -141,7 +141,7 @@ public:
 	void PlayerFreezeTime();
 
 	UFUNCTION(BlueprintCallable)
-	void PlayerDecreaseTime();
+	void PlayerIncreaseTime();
 
 	void Timer();
 

@@ -12,8 +12,17 @@ class FINALPROJECT_API AHarmfulFloor : public AActor
 	GENERATED_BODY()
 	
 public:	
+	
+	// Create Mesh
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* Mesh;
+	
 	// Sets default values for this actor's properties
 	AHarmfulFloor();
+
+	// Create sphere collision
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
+	class UBoxComponent* CollisionVolume;
 
 protected:
 	// Called when the game starts or when spawned
