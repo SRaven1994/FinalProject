@@ -34,6 +34,7 @@ APlayer1::APlayer1()
 	PlayerSlamming = false;
 	
 	DashEnergy = 1200;
+	MaxDashEnergy = 1200;
 	CanDash = true;
 
 	// Set size for collision capsule
