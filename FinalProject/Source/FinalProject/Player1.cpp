@@ -32,6 +32,9 @@ APlayer1::APlayer1()
 	TimeFreezeTimer = 0;
 
 	PlayerSlamming = false;
+	
+	DashEnergy = 1200;
+	CanDash = true;
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
