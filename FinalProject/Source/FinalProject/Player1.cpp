@@ -230,12 +230,12 @@ void APlayer1::PlayerIncreaseTime()
 // Timer - on milliseconds equal to 60 increamnt second, if seconds equal 60, incremeant minutes
 void APlayer1::Timer()
 {
-	if (Seconds <= 60)
+	if (Seconds >= 60)
 	{
 		Minutes += 1;
 		Seconds = 0;
 	}
-	else if (Milliseconds <= 60)
+	else if (Milliseconds >= 60)
 	{
 		Seconds += 1;
 		Milliseconds = 0;
