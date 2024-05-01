@@ -20,7 +20,7 @@ public:
 	// Sets default values for this actor's properties
 	AHarmfulFloor();
 
-	// Create sphere collision
+	// Create Box Collision
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
 	class UBoxComponent* CollisionVolume;
 

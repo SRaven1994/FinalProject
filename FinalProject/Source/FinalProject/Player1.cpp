@@ -40,6 +40,7 @@ APlayer1::APlayer1()
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+	CollisionVolume = GetCapsuleComponent();
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -82,6 +83,9 @@ void APlayer1::BeginPlay()
 		}
 	}
 	
+	CollisionVolume->OnComponentBeginOverlap.AddDynamic(this, &APlayer1::OnOverlapBegin);
+	CollisionVolume->OnComponentEndOverlap.AddDynamic(this, &APlayer1::OnOverlapEnd);
+
 }
 
 // Called every frame
@@ -261,9 +265,11 @@ void APlayer1::GainEnergy()
 
 void APlayer1::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Jump Reset"));
 	if (OtherActor->IsA<ALandscape>())
 	{
 		CharJumped = false;
+		UE_LOG(LogTemp, Warning, TEXT("Jump Reset"));
 	}
 }
 
