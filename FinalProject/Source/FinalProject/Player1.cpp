@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/Controller.h"
+#include "Landscape.h"
 
 
 // Sets default values
@@ -148,8 +149,11 @@ void APlayer1::ForceJump()
 // Make Player Jump 
 void APlayer1::PlayerJump()
 {
-
-	LaunchCharacter(FVector(0, 0, JumpHeightVelocity), false, true);
+	if (CharJumped == false)
+	{
+		CharJumped = true;
+		LaunchCharacter(FVector(0, 0, JumpHeightVelocity), false, true);
+	}
 }
 
 void APlayer1::Move(const FInputActionValue& Value)
@@ -205,7 +209,10 @@ void APlayer1::PlayerEndDash()
 // Perform a Slam
 void APlayer1::PlayerSlam()
 {
-
+	if (CharJumped == true)
+	{
+		PlayerSlamming = true;
+	}
 }
 
 // Perform Special ability
@@ -250,6 +257,19 @@ void APlayer1::Timer()
 void APlayer1::GainEnergy()
 {
 	DashEnergy = 1150;
+}
+
+void APlayer1::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor->IsA<ALandscape>())
+	{
+		CharJumped = false;
+	}
+}
+
+void APlayer1::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+
 }
 
 
