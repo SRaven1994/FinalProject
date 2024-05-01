@@ -4,7 +4,6 @@
 #include "TimeFreezePower.h"
 #include "Components/SphereComponent.h"
 #include "Player1.h"
-#include "Player2.h"
 
 // Sets default values
 ATimeFreezePower::ATimeFreezePower()

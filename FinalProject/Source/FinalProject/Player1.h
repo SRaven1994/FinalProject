@@ -41,9 +41,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
-	// Create Mechanics
+	// Create Slam Mechanics
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Mechanics")
 	bool PlayerSlamming;
+
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, category = "Mechanics")
+	float SlamVelocity;
 
 	// Create Dash Energy
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
@@ -152,7 +155,7 @@ public:
 	void GainEnergy();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	virtual void OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& SweepResult);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);

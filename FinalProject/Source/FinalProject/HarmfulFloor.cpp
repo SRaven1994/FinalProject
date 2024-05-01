@@ -4,7 +4,6 @@
 #include "HarmfulFloor.h"
 #include "Components/BoxComponent.h"
 #include "Player1.h"
-#include "Player2.h"
 
 // Sets default values
 AHarmfulFloor::AHarmfulFloor()

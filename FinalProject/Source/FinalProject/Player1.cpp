@@ -33,6 +33,7 @@ APlayer1::APlayer1()
 	TimeFreezeTimer = 0;
 
 	PlayerSlamming = false;
+	SlamVelocity = -1000.0f;
 	
 	DashEnergy = 1200;
 	MaxDashEnergy = 1200;
@@ -83,7 +84,7 @@ void APlayer1::BeginPlay()
 		}
 	}
 	
-	CollisionVolume->OnComponentBeginOverlap.AddDynamic(this, &APlayer1::OnOverlapBegin);
+	CollisionVolume->OnComponentHit.AddDynamic(this, &APlayer1::OnOverlapBegin);
 	CollisionVolume->OnComponentEndOverlap.AddDynamic(this, &APlayer1::OnOverlapEnd);
 
 }
@@ -213,9 +214,11 @@ void APlayer1::PlayerEndDash()
 // Perform a Slam
 void APlayer1::PlayerSlam()
 {
-	if (CharJumped == true)
+	if (CharJumped == true && PlayerSlamming == false)
 	{
 		PlayerSlamming = true;
+		LaunchCharacter(FVector(0, 0, SlamVelocity = -1000.0f), false, true);
+		UE_LOG(LogTemp, Warning, TEXT("Slamming"));
 	}
 }
 
@@ -263,13 +266,12 @@ void APlayer1::GainEnergy()
 	DashEnergy = 1150;
 }
 
-void APlayer1::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void APlayer1::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Jump Reset"));
 	if (OtherActor->IsA<ALandscape>())
 	{
 		CharJumped = false;
-		UE_LOG(LogTemp, Warning, TEXT("Jump Reset"));
+		PlayerSlamming = false;
 	}
 }
 
