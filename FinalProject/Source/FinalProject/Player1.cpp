@@ -38,6 +38,8 @@ APlayer1::APlayer1()
 	DashEnergy = 1200;
 	MaxDashEnergy = 1200;
 	CanDash = true;
+	CanPressButton = false;
+	IsInteracting = false;
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -218,14 +220,16 @@ void APlayer1::PlayerSlam()
 	{
 		PlayerSlamming = true;
 		LaunchCharacter(FVector(0, 0, SlamVelocity = -1000.0f), false, true);
-		UE_LOG(LogTemp, Warning, TEXT("Slamming"));
 	}
 }
 
 // Perform Special ability
 void APlayer1::PlayerSpecial()
 {
-
+	if (CanPressButton == true)
+	{
+		IsInteracting = true;
+	}
 }
 
 // Freeze the Player timer, then unfreeze after awhile
