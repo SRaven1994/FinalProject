@@ -38,6 +38,9 @@ APlayer1::APlayer1()
 	DashEnergy = 1200;
 	MaxDashEnergy = 1200;
 	CanDash = true;
+	HasUnlimitedDash = false;
+	UnlimitedDashTimer = 0;
+
 	CanPressButton = false;
 	IsInteracting = false;
 
@@ -117,6 +120,17 @@ void APlayer1::Tick(float DeltaTime)
 	{
 		TimeFreezeTimer -= 1;
 	}
+
+	// Countdown for Unlimited Dash, after awhile return back to limited
+	if (UnlimitedDashTimer == 0 && HasUnlimitedDash == true)
+	{
+		HasUnlimitedDash = false;
+	}
+	else if (HasUnlimitedDash == true && UnlimitedDashTimer != 0)
+	{
+		UnlimitedDashTimer -= 1;
+	}
+	 
 }
 
 // Called to bind functionality to input
@@ -198,7 +212,14 @@ void APlayer1::Look(const FInputActionValue& Value)
 // Dash Mechanics, gain energy after dashing
 void APlayer1::PlayerStartDash()
 {
-	if (CanDash == true)
+	if (CanDash == true && HasUnlimitedDash == true)
+	{
+		FRotator PlayerDirection = GetActorRotation();
+		FVector PlayerLocation = GetActorForwardVector();
+		LaunchCharacter(PlayerLocation * DashEnergy, 0, false);
+		CanDash = false;
+	}
+	else if (CanDash == true)
 	{
 		FRotator PlayerDirection = GetActorRotation();
 		FVector PlayerLocation = GetActorForwardVector();
@@ -245,6 +266,12 @@ void APlayer1::PlayerIncreaseTime()
 	Seconds += 10;
 }
 
+// Decrease player timer from collecting item that decrease your time
+void APlayer1::PlayerDecreaseTime()
+{
+	Seconds -= 20;
+}
+
 // Timer - on milliseconds equal to 60 increamnt second, if seconds equal 60, incremeant minutes
 void APlayer1::Timer()
 {
@@ -264,10 +291,12 @@ void APlayer1::Timer()
 	}
 }
 
-// Gain Energy
-void APlayer1::GainEnergy()
+// Gain Unlimited Energy and begin countdown of the power
+void APlayer1::GainUnlimitedEnergy()
 {
-	DashEnergy = 1150;
+	DashEnergy = 1190;
+	HasUnlimitedDash = true;
+	UnlimitedDashTimer = 180;
 }
 
 void APlayer1::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& SweepResult)

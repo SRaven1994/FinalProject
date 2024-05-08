@@ -22,7 +22,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Door, meta = (AllowPrivateAccess = "true"))
 	ADoor* Door = nullptr;
 
-	// Create mesh door
+	// Create mesh 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* Mesh;
 

@@ -56,6 +56,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
 	float MaxDashEnergy;
 
+	// Create Unlimited Dash
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
+	bool HasUnlimitedDash;
+
+	// Create Unlimited Dash timer
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
+	int UnlimitedDashTimer;
+
 	// Create Can Dash
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
 	bool CanDash;
@@ -157,10 +165,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void PlayerIncreaseTime();
 
+	UFUNCTION(BlueprintCallable)
+	void PlayerDecreaseTime();
+
 	void Timer();
 
-	// Create Gain dash energy function
-	void GainEnergy();
+	// Create Gain unlimited dash energy function
+	void GainUnlimitedEnergy();
+
+	// Create Collision function
 
 	UFUNCTION(BlueprintCallable)
 	virtual void OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& SweepResult);

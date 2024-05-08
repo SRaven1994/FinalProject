@@ -15,6 +15,17 @@ public:
 	// Sets default values for this actor's properties
 	ABouncePad();
 
+	// Create mesh 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* Stand;
+
+	// Create sphere collision
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
+	class USphereComponent* CollisionVolume;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
