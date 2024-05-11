@@ -12,6 +12,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/Controller.h"
 #include "Landscape.h"
+#include "Platforms.h"
 
 
 // Sets default values
@@ -43,6 +44,8 @@ APlayer1::APlayer1()
 
 	CanPressButton = false;
 	IsInteracting = false;
+
+	TimeEnd = false;
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -106,7 +109,7 @@ void APlayer1::Tick(float DeltaTime)
 	}
 
 	// Run timer, stop it once player collect freeze power and resume after awhile
-	if (TimeFrozen == false)
+	if (TimeFrozen == false || TimeEnd == false)
 	{
 		Timer();
 	}
@@ -269,10 +272,24 @@ void APlayer1::PlayerIncreaseTime()
 // Decrease player timer from collecting item that decrease your time
 void APlayer1::PlayerDecreaseTime()
 {
-	Seconds -= 20;
+	int MinuteSeconds = 60 * Minutes;
+	MinuteSeconds += Seconds;
+	MinuteSeconds -= 20;
+	Minutes = MinuteSeconds / 60;
+	Seconds = MinuteSeconds % 60;
 }
 
-// Timer - on milliseconds equal to 60 increamnt second, if seconds equal 60, incremeant minutes
+// Get total time to use for display win results in competitive mode
+int APlayer1::GetPlayerTotalTime()
+{
+	 int MinuteSeconds = 60 * Minutes;
+	 MinuteSeconds += Seconds;
+	 MinuteSeconds *= 60;
+	 MinuteSeconds += Milliseconds;
+	 return MinuteSeconds;
+}
+
+// Timer - on milliseconds equal to 60 increament second, if seconds equal 60, increament minutes
 void APlayer1::Timer()
 {
 	if (Seconds >= 60)
@@ -299,9 +316,10 @@ void APlayer1::GainUnlimitedEnergy()
 	UnlimitedDashTimer = 180;
 }
 
+// Reset slam and jump states
 void APlayer1::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& SweepResult)
 {
-	if (OtherActor->IsA<ALandscape>())
+	if (OtherActor->IsA<ALandscape>() || OtherActor->IsA<APlatforms>())
 	{
 		CharJumped = false;
 		PlayerSlamming = false;

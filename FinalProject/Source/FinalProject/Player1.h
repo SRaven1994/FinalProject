@@ -96,6 +96,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
 	bool IsInteracting;
 
+	// Create Time End
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterStats, meta = (AllowPrivateAccess = "true"))
+	bool TimeEnd;
+
 	//Create Inputs
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
@@ -167,6 +171,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void PlayerDecreaseTime();
+
+	UFUNCTION(BlueprintCallable)
+	int GetPlayerTotalTime();
 
 	void Timer();
 

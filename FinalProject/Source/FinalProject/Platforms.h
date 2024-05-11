@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "EndLevelPoint.generated.h"
+#include "Platforms.generated.h"
 
 UCLASS()
-class FINALPROJECT_API AEndLevelPoint : public AActor
+class FINALPROJECT_API APlatforms : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AEndLevelPoint();
+	APlatforms();
 
 	// Create Mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
@@ -22,12 +22,6 @@ public:
 	// Create sphere collision
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
 	class UBoxComponent* CollisionVolume;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayersEntered, meta = (AllowPrivateAccess = "true"))
-	int PlayersEnter;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = LevelMode, meta = (AllowPrivateAccess = "true"))
-	bool CompetitiveMode;
 
 protected:
 	// Called when the game starts or when spawned
