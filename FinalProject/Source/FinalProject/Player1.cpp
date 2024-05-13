@@ -13,6 +13,10 @@
 #include "GameFramework/Controller.h"
 #include "Landscape.h"
 #include "Platforms.h"
+#include "HarmfulFloor.h"
+#include "DoorSlamButton.h"
+#include "TutorialSignPost.h"
+#include "MovableObject.h"
 
 
 // Sets default values
@@ -319,7 +323,8 @@ void APlayer1::GainUnlimitedEnergy()
 // Reset slam and jump states
 void APlayer1::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& SweepResult)
 {
-	if (OtherActor->IsA<ALandscape>() || OtherActor->IsA<APlatforms>())
+	if (OtherActor->IsA<ALandscape>() || OtherActor->IsA<APlatforms>() || OtherActor->IsA<ADoorSlamButton>() || OtherActor->IsA<AHarmfulFloor>() || 
+		OtherActor->IsA<AMovableObject>() || OtherActor->IsA<ATutorialSignPost>())
 	{
 		CharJumped = false;
 		PlayerSlamming = false;
