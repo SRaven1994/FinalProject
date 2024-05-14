@@ -61,7 +61,11 @@ void AEndLevelPoint::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherA
 		{
 			Char1->DisableInput(DisableControls);
 		}
-		PlayersEnter += 1;
+		if (Char1->PlayerReachGoal == false)
+		{
+			Char1->PlayerReachGoal = true;
+			PlayersEnter += 1;
+		}
 		if (CompetitiveMode == true)
 		{
 			Char1->TimeEnd = true;

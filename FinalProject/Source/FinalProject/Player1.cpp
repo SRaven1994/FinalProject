@@ -50,6 +50,7 @@ APlayer1::APlayer1()
 	IsInteracting = false;
 
 	TimeEnd = false;
+	PlayerReachGoal = false;
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -113,7 +114,7 @@ void APlayer1::Tick(float DeltaTime)
 	}
 
 	// Run timer, stop it once player collect freeze power and resume after awhile
-	if (TimeFrozen == false || TimeEnd == false)
+	if (TimeFrozen == false && TimeEnd == false)
 	{
 		Timer();
 	}
@@ -281,6 +282,14 @@ void APlayer1::PlayerDecreaseTime()
 	MinuteSeconds -= 20;
 	Minutes = MinuteSeconds / 60;
 	Seconds = MinuteSeconds % 60;
+	if (Minutes < 0)
+	{
+		Minutes = 0;
+	}
+	if (Seconds < 0)
+	{
+		Seconds = 0;
+	}
 }
 
 // Get total time to use for display win results in competitive mode

@@ -57,14 +57,12 @@ void ATimeFreezePower::Tick(float DeltaTime)
 void ATimeFreezePower::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	// When either player collides with item, freeze their time
-	if (Cast<APlayer1>(OtherActor))
+
+	APlayer1* Char1 = Cast<APlayer1>(OtherActor);
+	if (Char1)
 	{
-		APlayer1* Char1 = Cast<APlayer1>(OtherActor);
-			if (Char1)
-			{
-				Char1->PlayerFreezeTime();
-				Destroy();
-			}
+		Char1->PlayerFreezeTime();
+		Destroy();
 	}
 }
 
