@@ -30,6 +30,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
 	class UBoxComponent* CollisionVolume;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ButtonState, meta = (AllowPrivateAccess = "true"))
 	bool ButtonPressed;
 
 protected:

@@ -30,6 +30,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MeshCollsions, meta = (AllowPrivateAccess = "true"))
 	class UBoxComponent* CollisionVolume;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ButtonState, meta = (AllowPrivateAccess = "true"))
+	bool ButtonPressed;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -20,6 +20,7 @@ ADoorButton::ADoorButton()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(RootComponent);
 
+	ButtonPressed = false;
 }
 
 // Called when the game starts or when spawned
@@ -46,6 +47,7 @@ void ADoorButton::Tick(float DeltaTime)
 			{
 				Door->ActivateDoor();
 				Character->IsInteracting = false;
+				ButtonPressed = true;
 			}
 		}
 	}
