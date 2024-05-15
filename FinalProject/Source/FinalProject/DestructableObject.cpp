@@ -80,7 +80,7 @@ void ADestructableObject::DestroyObject()
 	APlayerController* MyController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	APawn* MyPawn = MyController->GetPawn();
 	APlayer1* Char = Cast<APlayer1>(MyPawn);
-	if (Char != nullptr && Char->PlayerSlamming == true)
+	if (Char->PlayerSlamming == true)
 	{
 		Destroy();
 	}
